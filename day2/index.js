@@ -11,37 +11,40 @@ const {
   init,
   split,
   curry,
-  equals
+  equals,
+  toPairs,
+  last,
+  head,
+  both,
+  anyPass
 } = require('ramda')
+const { inRange } = require('ramda-adjunct')
 
 const checkFirstPolicy = curry(({rule, char, pw}) => compose(
-  arr => {
-    const range = split('-')(rule)
-    return length(arr) >= range[0] && length(arr) <= range[1]
-  },
+  compose(inRange(rule[0], rule[1]+1), length),
   filter(equals(char))
 )(pw))
 
-const checkSecondPolicy = curry(({rule, char, pw}) => {
-  const range = compose(map(l => +(l)), split('-'))(rule)
-  return compose(
-    compose(equals(1), length),
-    arr => Array.from(arr).filter(
-      (ch, i) => {
-        return char == ch
-            && (i === range[0]-1
-             || i === range[1]-1)
-      })
-  )(pw)
-})
+// needed to be fixed
+const checkSecondPolicy = curry(({rule, char, pw}) => compose(
+  compose(equals(1), length),
+  filter(both(
+    compose(equals(char), last),
+    anyPass([
+      compose(equals(rule[0] - 1), head),
+      compose(equals(rule[1] - 1), head)
+    ])
+  )),
+  toPairs
+)(pw))
 
 const valuesFromFile = compose(
   length,
-  //   filter(checkFirstPolicy),
+  // choose policies here
   filter(checkSecondPolicy),
   map(compose(
     applySpec({
-      rule: nth(0),
+      rule: compose(map(l => +(l)), split('-'), nth(0)),
       char: compose(init, nth(1)),
       pw: nth(2)
     }),
