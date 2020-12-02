@@ -1,25 +1,17 @@
 const fs = require('fs')
-const kcomb = require("foreach-combination")
+const kcomb = require('foreach-combination')
+const { getFileContents } = require('../utils/helpers.js')
 
 const {
-  invoker,
   compose,
-  toString,
-  split,
   map,
-  init,
   equals,
-  sum,
+  sum
 } = require('ramda')
-
-const rfs = invoker(1, 'readFileSync')
 
 const valuesFromFile = compose(
   map(elm => +(elm)),
-  init,
-  split('\n'),
-  toString,
-  rfs('day1/input')
+  getFileContents('day1/input')
 )(fs)
 
 let rep;
