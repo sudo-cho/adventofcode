@@ -1,5 +1,5 @@
 const fs = require('fs')
-const { getFileContents, log } = require('../utils/helpers.js')
+const { getFileContents } = require('../utils/helpers.js')
 
 const {
   compose,
@@ -8,18 +8,10 @@ const {
   nth,
   length,
   filter,
-  includes,
-  prop,
   init,
   split,
-  props,
-  head,
-  last,
   curry,
-  both,
-  equals,
-  either,
-  tap
+  equals
 } = require('ramda')
 
 const checkFirstPolicy = curry(({rule, char, pw}) => compose(
@@ -45,7 +37,7 @@ const checkSecondPolicy = curry(({rule, char, pw}) => {
 
 const valuesFromFile = compose(
   length,
-  //   filter(checkFirstPolicy,
+  //   filter(checkFirstPolicy),
   filter(checkSecondPolicy),
   map(compose(
     applySpec({
