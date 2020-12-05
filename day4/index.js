@@ -1,5 +1,5 @@
 const fs = require('fs')
-const { getFileContentsWithSpaceInMac, log } = require('../utils/helpers.js')
+const { getFileContentsWithSpaceInMac } = require('../utils/helpers.js')
 
 const {
   compose,
@@ -13,17 +13,8 @@ const {
   dissoc,
   keys,
   where,
-  both,
-  either,
-  test,
-  tap,
-  reject,
-  includes,
-  dropLast,
-  __,
-  join
+  test
 } = require('ramda')
-const { inRange } = require('ramda-adjunct')
 
 const valuesFromFile = compose(
   length,
