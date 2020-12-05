@@ -3,15 +3,11 @@ const { getFileContentsWithSpaceInMac } = require('../utils/helpers.js')
 
 const {
   compose,
-  equals,
   length,
   filter,
-  curry,
   fromPairs,
   split,
   map,
-  dissoc,
-  keys,
   where,
   test
 } = require('ramda')
@@ -28,12 +24,6 @@ const valuesFromFile = compose(
       ecl: test(/^(amb|blu|brn|gry|grn|hzl|oth)$/),
       pid: test(/^[0-9]{9}$/)
     })
-  )),
-  filter(compose(
-    equals(7),
-    length,
-    keys,
-    dissoc('cid')
   )),
   map(compose(
     fromPairs,
