@@ -13,7 +13,6 @@ const rfs = invoker(1, 'readFileSync')
 const getFileContentsWithSign = curry((chara, name, fs) => compose(
   init,
   split(chara),
-  trim,
   toString,
   rfs(name)
 )(fs))
@@ -21,6 +20,6 @@ const getFileContentsWithSign = curry((chara, name, fs) => compose(
 exports.log = x => console.log(x)
 
 exports.getFileContents =
-  getFileContentsWithSign('\n')
+  getFileContentsWithSign(/\n/)
 exports.getFileContentsWithSpaceInMac =
   getFileContentsWithSign(/\n\n/)

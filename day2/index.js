@@ -1,5 +1,5 @@
 const fs = require('fs')
-const { getFileContents, log } = require('../utils/helpers.js')
+const { getFileContents } = require('../utils/helpers.js')
 
 const {
   compose,
@@ -15,8 +15,7 @@ const {
   toPairs,
   last,
   head,
-  both,
-  tap
+  both
 } = require('ramda')
 const {
   inRange,
@@ -31,7 +30,6 @@ const checkFirstPolicy = curry(({rule, char, pw}) => compose(
 // need to be fixed, returns 36 but should return correct answer
 const checkSecondPolicy = curry(({rule, char, pw}) => compose(
   compose(equals(1), length),
-  tap(log),
   filter(both(
     compose(equals(char), last),
     notBoth([
