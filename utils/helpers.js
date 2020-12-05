@@ -4,16 +4,23 @@ const {
   split,
   toString,
   curry,
+  trim,
   init
 } = require('ramda')
 
 const rfs = invoker(1, 'readFileSync')
 
-exports.getFileContents = curry((name, fs) => compose(
-  init,
-  split('\n'),
+const getFileContentsWithSign = curry((chara, name, fs) => compose(
+  // init,
+  split(chara),
+  trim,
   toString,
   rfs(name)
 )(fs))
 
 exports.log = x => console.log(x)
+
+exports.getFileContents =
+  getFileContentsWithSign('\n')
+exports.getFileContentsWithSpaceInMac =
+  getFileContentsWithSign(/\n\n/)

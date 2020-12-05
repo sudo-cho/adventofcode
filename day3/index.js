@@ -27,7 +27,7 @@ const valuesFromFile = compose(
     getThreesFromSlope({ right: 3, down: 1 }),
     getThreesFromSlope({ right: 5, down: 1 }),
     getThreesFromSlope({ right: 7, down: 1 }),
-    getThreesFromSlope({ right: 1, down: 2})
+    getThreesFromSlope({ right: 1, down: 2 })
   ]),
   getFileContents('day3/input')
 )(fs)
