@@ -15,43 +15,27 @@ const {
   where,
   both,
   either,
-  match,
+  test,
   tap,
   reject,
   includes,
+  dropLast,
+  __,
   join
 } = require('ramda')
-const { inRange, isNaN} = require('ramda-adjunct')
-
-const validEyes = ['amb', 'blu', 'brn', 'gry', 'grn', 'hzl', 'oth']
-
-const getNumericHeight = compose(
-  join(''),
-  reject(isNaN),
-  map(l => +(l)),
-  split('')
-)
+const { inRange } = require('ramda-adjunct')
 
 const valuesFromFile = compose(
   length,
   filter(compose(
     where({
-      byr: inRange(1920, 2002),
-      iyr: inRange(2010, 2020),
-      eyr: inRange(2020, 2030),
-      hgt: either(
-        both(
-          includes('cm'),
-          compose(inRange(150, 193), getNumericHeight)
-        ),
-        both(
-          includes('in'),
-          compose(inRange(59, 76), getNumericHeight)
-        ),
-      ),
-      hcl: match(/r'#[0-9a-f]{6}'/),
-      ecl: elm => includes(elm, validEyes),
-      pid: match(/r'[0-9]{9}'/)
+      byr: test(/19[2-9]\d|200[0-2]/),
+      iyr: test(/201\d|2020/),
+      eyr: test(/202\d|2030/),
+      hgt: test(/((1[5-8]\d|19[0-3])cm|(59|6\d|7[0-6])in)/),
+      hcl: test(/^#[0-9a-f]{6}$/),
+      ecl: test(/^(amb|blu|brn|gry|grn|hzl|oth)$/),
+      pid: test(/^[0-9]{9}$/)
     })
   )),
   filter(compose(
