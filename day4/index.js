@@ -14,7 +14,7 @@ const {
 
 const valuesFromFile = compose(
   length,
-  filter(compose(
+  filter(
     where({
       byr: test(/19[2-9]\d|200[0-2]/),
       iyr: test(/201\d|2020/),
@@ -24,7 +24,7 @@ const valuesFromFile = compose(
       ecl: test(/^(amb|blu|brn|gry|grn|hzl|oth)$/),
       pid: test(/^[0-9]{9}$/)
     })
-  )),
+  ),
   map(compose(
     fromPairs,
     map(split(':'))
