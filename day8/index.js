@@ -74,12 +74,12 @@ const sequence = curry((acc, act, arr, curTry) => compose(
           0,
           arr[0],
           update(+(getNextTry(arr)[0]), getNextTry(arr)[1], arr),
-          getNextTry(arr)
+          getNextTry(arr)[1]
         )
       },
       when(
-        x => !(includes(curTry, arrayOfTest)),
-        tap(x => arrayOfTest.push(curTry))
+        x => !(includes(replace(/jmp/, 'nop', curTry), arrayOfTest)),
+        tap(x => arrayOfTest.push(replace(/jmp/, 'nop', curTry)))
       ),
       tap(x => console.log(curTry)),
       tap(x => arrayOfIndices = []),
