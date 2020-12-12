@@ -24,47 +24,73 @@ const {
   isEmpty,
   __,
   forEach,
+  update,
+  replace,
+  toPairs,
   tap
 } = require('ramda')
 const { isNotEmpty } = require('ramda-adjunct')
 
-const colors = new Set()
-const addColor = forEach(x => colors.add(x))
+let arrayOfIndices = []
+let arrayOfTest = ['nop +48']
 
-let lastColors = []
-const storeLastColors = x => {
-  lastColors = []
-  lastColors.push(...x)
-}
+const getAccValue = compose(last, split(' '), last)
+const getActName = compose(head, split(' '), last)
+const getNextTry = compose(
+  juxt([
+    head,
+    compose(replace(/nop/, 'jmp'), last)
+  ]),
+  head,
+  filter(both(
+    compose(not, includes(__, arrayOfTest), last),
+    compose(includes('nop'), last)
+  )),
+  tap(x => console.log('array of test', arrayOfTest))
+)
 
-const getFirstColor = compose(join(' '), take(2), split(' '))
-
-const getBagsWithColor = curry((color, arr) => compose(
+const sequence = curry((acc, act, arr, curTry) => compose(
   when(
-    compose(not, equals(lastColors.length), tap(log), length),
-    compose(
-      getBagsWithColor(__, arr),
-      tap(storeLastColors),
-      tap(addColor)
-    )
+    compose(equals('nop'), head, split(' '), last),
+    x => sequence(acc, arr[+(x[0]) + 1], arr, curTry)
   ),
-  ls => {
-    console.log('here', lastColors)
-    return ls
-  },
-  map(getFirstColor),
-  filter(
-    both(
-      compose(isNotEmpty, intersection(color)),
-      compose(isEmpty, intersection(color), getFirstColor)
+  when(
+    compose(equals('jmp'), head, split(' '), last),
+    x => sequence(acc, arr[+(x[0]) + +getAccValue(x)], arr, curTry)
+  ),
+  when(
+    compose(equals('acc'), head, split(' '), last),
+    x => sequence(acc + +(getAccValue(x)), arr[+(x[0]) + 1], arr, curTry)
+  ),
+  // will catch final acc value, should add tryCatch
+  // to remove error but la flemme-zer
+  tap(x => arrayOfIndices.push(head(x))),
+  when(
+    compose(includes(__, arrayOfIndices), head),
+    compose(
+      x => {
+        console.log('nextTry', getNextTry(arr)[0])
+        return sequence(
+          0,
+          arr[0],
+          update(+(getNextTry(arr)[0]), getNextTry(arr)[1], arr),
+          getNextTry(arr)
+        )
+      },
+      when(
+        x => !(includes(curTry, arrayOfTest)),
+        tap(x => arrayOfTest.push(curTry))
+      ),
+      tap(x => console.log(curTry)),
+      tap(x => arrayOfIndices = []),
     )
   )
-)(arr))
+)(act))
 
 const valuesFromFile = compose(
-  arr => colors.length,
-  getBagsWithColor(['shiny gold']),
-  getFileContents('day7/input')
+  list => sequence(0, head(list), list, arrayOfTest[0]),
+  toPairs,
+  getFileContents('day8/input')
 )(fs)
 
 console.log(valuesFromFile)

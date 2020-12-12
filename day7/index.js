@@ -31,8 +31,8 @@ const colors = new Set()
 const addColor = forEach(x => colors.add(x))
 
 let lastColors = 1
-// using clone method to avoid bad suprises with references copies
-// I'm not familiar with mutations in JS
+// using clone method to avoid bad surprises with references copies
+// I don't trust JS mutations
 const storeLastColors = x => lastColors = JSON.parse(JSON.stringify({ size: colors.size }))
 
 const getFirstColor = compose(join(' '), take(2), split(' '))
