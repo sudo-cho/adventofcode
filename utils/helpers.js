@@ -4,6 +4,7 @@ const {
   split,
   toString,
   curry,
+  map,
   trim,
   init
 } = require('ramda')
@@ -23,3 +24,5 @@ exports.getFileContents =
   getFileContentsWithSign(/\n/)
 exports.getFileContentsWithSpaceInMac =
   getFileContentsWithSign(/\n\n/)
+
+exports.parseIntList = map(x => +(x))

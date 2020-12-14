@@ -69,8 +69,7 @@ const sequence = curry((acc, act, arr, curTry) => compose(
       ),
       tap(x => arrayOfIndices = [])
     )
-  ),
-  tap(log)
+  )
 )(act))
 
 const valuesFromFile = compose(
