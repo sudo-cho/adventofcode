@@ -75,7 +75,7 @@ const sequence = curry((acc, act, arr, curTry) => compose(
 const valuesFromFile = compose(
   list => sequence(0, head(list), list, arrayOfTest[0]),
   toPairs,
-  getFileContents('day8/input')
+  getFileContents('day08/input')
 )(fs)
 
 console.log(valuesFromFile)

@@ -52,7 +52,7 @@ const valuesFromFile = compose(
     }),
     split(' ')
   )),
-  getFileContents('day2/input')
+  getFileContents('day02/input')
 )(fs)
 
 console.log(valuesFromFile)

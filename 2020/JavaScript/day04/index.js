@@ -30,7 +30,7 @@ const valuesFromFile = compose(
     map(split(':'))
   )),
   map(split(/\s+/)),
-  getFileContentsWithSpaceInMac('day4/input')
+  getFileContentsWithSpaceInMac('day04/input')
 )(fs)
 
 console.log(valuesFromFile)

@@ -11,7 +11,7 @@ const {
 
 const valuesFromFile = compose(
   map(elm => +(elm)),
-  getFileContents('day1/input')
+  getFileContents('day01/input')
 )(fs)
 
 let rep;

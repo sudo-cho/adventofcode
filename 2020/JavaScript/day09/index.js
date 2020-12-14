@@ -15,7 +15,6 @@ const {
   slice,
   identity,
   isEmpty,
-  T,
   sum,
   tap
 } = require('ramda')
@@ -54,7 +53,7 @@ const valuesFromFile = compose(
     identity
   ]),
   parseIntList,
-  getFileContents('day9/input')
+  getFileContents('day09/input')
 )(fs)
 
 console.log(valuesFromFile)

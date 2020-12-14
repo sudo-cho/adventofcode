@@ -19,7 +19,7 @@ const valuesFromFile = compose(
     replace(/(B|R)/g, 1),
     replace(/(F|L)/g, 0)
   )),
-  getFileContents('day5/input')
+  getFileContents('day05/input')
 )(fs)
 
 console.log(valuesFromFile)

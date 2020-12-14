@@ -73,7 +73,7 @@ const valuesFromFile = compose(
   //  part 1
   // arr => colors.size,
   // getBagsWithColor(['shiny gold']),
-  getFileContents('day7/input')
+  getFileContents('day07/input')
 )(fs)
 
 console.log(valuesFromFile)
