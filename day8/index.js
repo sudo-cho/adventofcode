@@ -5,31 +5,22 @@ const {
   compose,
   map,
   split,
-  join,
-  take,
   includes,
   filter,
   juxt,
-  identity,
-  reject,
   head,
   last,
-  intersection,
   curry,
   both,
   equals,
-  length,
   not,
   when,
-  isEmpty,
   __,
-  forEach,
   update,
   replace,
   toPairs,
   tap
 } = require('ramda')
-const { isNotEmpty } = require('ramda-adjunct')
 
 let arrayOfIndices = []
 let arrayOfTest = ['nop +48']
@@ -45,46 +36,41 @@ const getNextTry = compose(
   filter(both(
     compose(not, includes(__, arrayOfTest), last),
     compose(includes('nop'), last)
-  )),
-  tap(x => console.log('array of test', arrayOfTest))
+  ))
 )
 
+// Bruteforce here is making the program to run around 500 sequence then fails.
+// If the results is not displayed, then I'll store the test and start the program with
+// the next 500 sequence.
+// At the end I got the result but it needs refactoring in order to work in 1 try.
 const sequence = curry((acc, act, arr, curTry) => compose(
-  when(
-    compose(equals('nop'), head, split(' '), last),
-    x => sequence(acc, arr[+(x[0]) + 1], arr, curTry)
-  ),
-  when(
-    compose(equals('jmp'), head, split(' '), last),
-    x => sequence(acc, arr[+(x[0]) + +getAccValue(x)], arr, curTry)
-  ),
-  when(
-    compose(equals('acc'), head, split(' '), last),
-    x => sequence(acc + +(getAccValue(x)), arr[+(x[0]) + 1], arr, curTry)
+  x => sequence(
+    acc + (equals('acc', getActName(x)) ? +(getAccValue(x)) : 0),
+    arr[+(x[0]) + (equals('jmp', getActName(x)) ? +(getAccValue(x)): 1)],
+    arr,
+    curTry
   ),
   // will catch final acc value, should add tryCatch
   // to remove error but la flemme-zer
+  tap(x => console.log(acc)),
   tap(x => arrayOfIndices.push(head(x))),
   when(
     compose(includes(__, arrayOfIndices), head),
     compose(
-      x => {
-        console.log('nextTry', getNextTry(arr)[0])
-        return sequence(
-          0,
-          arr[0],
-          update(+(getNextTry(arr)[0]), getNextTry(arr)[1], arr),
-          getNextTry(arr)[1]
-        )
-      },
+      x => sequence(
+        0,
+        arr[0],
+        update(+(getNextTry(arr)[0]), getNextTry(arr)[1], arr),
+        getNextTry(arr)[1]
+      ),
       when(
         x => !(includes(replace(/jmp/, 'nop', curTry), arrayOfTest)),
         tap(x => arrayOfTest.push(replace(/jmp/, 'nop', curTry)))
       ),
-      tap(x => console.log(curTry)),
-      tap(x => arrayOfIndices = []),
+      tap(x => arrayOfIndices = [])
     )
-  )
+  ),
+  tap(log)
 )(act))
 
 const valuesFromFile = compose(
