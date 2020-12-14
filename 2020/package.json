@@ -1,7 +1,5 @@
 {
-  "name": "adventofcode2020",
-  "version": "0.1.0",
-  "main": "index.js",
+  "name": "adventofcode",
   "dependencies": {
     "find-pair-sum": "0.0.2",
     "foreach-combination": "^1.0.0",
