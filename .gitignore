@@ -1,2 +1,5 @@
 node_modules
 .DS_Store
+*.o
+*.hi
+[1-9][ab]
