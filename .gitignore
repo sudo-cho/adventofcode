@@ -3,3 +3,5 @@ node_modules
 *.o
 *.hi
 [1-9][ab]
+.target
+Cargo.lock
