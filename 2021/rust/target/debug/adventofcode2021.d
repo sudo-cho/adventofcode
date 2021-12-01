@@ -1,1 +1,0 @@
-/Users/noisiv/MAIN/dev/adventofcode/2021/rust/target/debug/adventofcode2021: /Users/noisiv/MAIN/dev/adventofcode/2021/rust/src/01/01_sonar_sweep.rs /Users/noisiv/MAIN/dev/adventofcode/2021/rust/src/main.rs
