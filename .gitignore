@@ -3,5 +3,5 @@ node_modules
 *.o
 *.hi
 [1-9][ab]
-.target
+2021/rust/target
 Cargo.lock
