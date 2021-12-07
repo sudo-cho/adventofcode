@@ -25,8 +25,9 @@ pub fn run () {
     let len = sum.len() as u32;
     let gamma = sum
         .iter()
-        .map(|v| if v > &(len / 2) { 1 } else { 0 })
-        .flatten();
+        .flat_map(|v| if v > &(len / 2) { 1 } else { 0 })
+        .collect();
 
+    // Not compiling for the moment
     println!("{:?}", gamma)
 }
