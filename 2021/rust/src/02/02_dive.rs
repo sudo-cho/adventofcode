@@ -1,7 +1,8 @@
-use std::fs;
+#[path = "../utils.rs"]
+mod utils;
 
 pub fn run () {
-    let data = fs::read_to_string("./src/02/input.txt").expect("Unable to read file");
+    let data = utils::f_to_string("./src/02/input.txt");
 
     // let (pos, depth) =
     //     data

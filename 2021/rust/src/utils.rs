@@ -1,7 +1,5 @@
-use std::fs;
-
 pub fn file_to_vec_i32(path: &str) -> Vec<i32> {
-    let data = fs::read_to_string(path).expect("Unable to read file");
+    let data = f_to_string(path);
 
     let lines: Vec<i32> = data
         .lines()
@@ -9,4 +7,8 @@ pub fn file_to_vec_i32(path: &str) -> Vec<i32> {
         .collect();
 
     return lines;
+}
+
+pub fn f_to_string(path: &str) -> String {
+    std::fs::read_to_string(path).expect("unable to read file")
 }
