@@ -18,9 +18,8 @@ const part1 = input
 .map(
   e => e.slice(0, e.length / 2).split('').filter(
     a => e.slice(e.length / 2, e.length).includes(a)
-  )
-)
-.map(f => f.slice(0, 1)).map(
+  ).slice(0, 1)
+).map(
   g => letterList.split('').findIndex(h => h === g[0]) + 1
 )
 .reduce((l1, l2) => l1 + l2, 0)
