@@ -1,7 +1,7 @@
 import fs from "fs"
 
 const input = fs
-  .readFileSync("input")
+  .readFileSync('input')
   .toString()
   .split(/\n/)
   .slice(0, -1)
