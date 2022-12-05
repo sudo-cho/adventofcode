@@ -27,8 +27,8 @@ const part1 = input
 
 const part2 = input
 .reduce((e, a, i) => {
-  const ch = Math.floor(i / 3);
-  e[ch] = [].concat((e[ch]||[]), a); 
+  const ch = Math.floor(i / 3)
+  e[ch] = [].concat((e[ch]||[]), a)
   return e
 }, [])
 .map(elm => elm
