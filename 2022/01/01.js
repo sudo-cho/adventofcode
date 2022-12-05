@@ -4,11 +4,10 @@ const input = fs
   .readFileSync("input")
   .toString()
   .split(/\n\n/)
-  .map((e) =>
-    e
-      .split(/\n/)
-      .map((e) => +e)
-      .reduce((a, b) => a + b, 0)
+  .map((e) => e
+    .split(/\n/)
+    .map((e) => +e)
+    .reduce((a, b) => a + b, 0)
   );
 
 const p2 = input
