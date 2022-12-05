@@ -25,8 +25,6 @@ invertBinary =
 toDec :: [Char] -> Int
 toDec = foldl (\a x -> a * 2 + digitToInt x) 0
 
--- Taken from : https://github.com/Maeevick/adventofcode2021/blob/main/src/D3.hs
--- Which is very similar from my part 1, got lazy with part 2
 -- Using where to determine final answer is way more elegant than making
 -- tuples to do the final answer.
 part2 :: [String] -> Int
