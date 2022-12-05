@@ -6,10 +6,10 @@ const letterList =
 // I don't want to rely on external utils so everything works
 // by copy/pasting code into node compiler
 const input = fs
-  .readFileSync('input')
-  .toString()
-  .split(/\n/)
-  .slice(0, -1)
+.readFileSync('input')
+.toString()
+.split(/\n/)
+.slice(0, -1)
 
 // possible refactorisation by externalizing functions to replace
 // letter by its corresponding value and reducers by sum function
@@ -31,11 +31,13 @@ const part2 = input
   e[ch] = [].concat((e[ch]||[]), a); 
   return e
 }, [])
-.map(elm => elm.map(subElm => [...subElm]))
-.map(elm => elm.reduce((f, g) => f.filter(h => g.includes(h))))
-.map(elm => elm.slice(0, 1).map(
-  g => letterList.split('').findIndex(h => h === g[0]) + 1
-))
+.map(elm => elm
+  .map(subElm => [...subElm])
+  .reduce((f, g) => f.filter(h => g.includes(h)))
+  .slice(0, 1).map(
+    g => letterList.split('').findIndex(h => h === g[0]) + 1
+  )
+)
 .flat()
 .reduce((l1, l2) => l1 + l2, 0)
 
