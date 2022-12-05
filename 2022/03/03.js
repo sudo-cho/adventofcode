@@ -11,9 +11,6 @@ const input = fs
 .split(/\n/)
 .slice(0, -1)
 
-// possible refactorisation by externalizing functions to replace
-// letter by its corresponding value and reducers by sum function
-
 const part1 = input
 .map(
   e => e.slice(0, e.length / 2).split('').filter(
@@ -24,6 +21,9 @@ const part1 = input
 )
 .reduce((l1, l2) => l1 + l2, 0)
 
+// here is a great example to show the effiency
+// of naming variables correctly but I hope you like all my
+// e, a, i, ch, elm, subelm, f, g, h, l1, l2 kids
 const part2 = input
 .reduce((e, a, i) => {
   const ch = Math.floor(i / 3)
