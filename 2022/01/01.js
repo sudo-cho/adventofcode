@@ -18,4 +18,4 @@ const p2 = input
   .slice(0, 3)
   .reduce((a, b) => a + b);
 
-console.log(p1, p2);
+console.log(p1, p2)

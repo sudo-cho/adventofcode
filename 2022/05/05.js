@@ -20,17 +20,18 @@ const startingPosition = input[0]
 const movements = input
   .at(-1)
   .split(/\n/)
+  .slice(0, -1)
   .map(e => e.split(' ').filter(f => !isNaN(f)).map(g => +(g)))
   
-const p1 = movements.reduce((a, b) => {
-  if (a) {
-    newArray = 
-      console.log('hey', newArray[b[2]-1], a, b)
-    newArray[b[2] - 1] = [
-      ...(newArray[b[1] - 1].splice(0, b[0])),
-      ...newArray[b[2] - 1]
-    ]
-  }
-  
-  // return newArray
+const answer = movements.reduce((a, b) => {
+  const newArray = a
+  newArray[b[2] - 1] = [
+    // for part 2, uncomment this and comment next line
+    //...(newArray[b[1] - 1].splice(0, b[0])),
+    ...(newArray[b[1] - 1].splice(0, b[0])).reverse(),
+    ...newArray[b[2] - 1]
+  ]
+  return newArray
 }, startingPosition)
+
+console.log(answer)
