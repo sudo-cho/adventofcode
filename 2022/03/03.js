@@ -21,7 +21,7 @@ const part1 = input
 )
 .reduce((l1, l2) => l1 + l2, 0)
 
-// here is a great example to show the effiency
+// here is a great example to show the efficiency
 // of naming variables correctly but I hope you like all my
 // e, a, i, ch, elm, subelm, f, g, h, l1, l2 kids
 const part2 = input
