@@ -42,10 +42,15 @@ const p1 = Object
   .filter(e => e <= 100000)
   .reduce((a, b) => a + b)
 
+const totalSize = Object
+  .values(p1Input)
+  .map(e => e.map(f => +(f)).reduce((a, b) => a + b))
+  .reduce((a, b) => a + b)
+
 const p2 = Object
   .values(p1Input)
   .map(e => e.map(f => +(f)).reduce((a, b) => a + b))
-  .filter(e => e <= 30000000)
+  .filter(e => e <= 30000000 - (70000000 - totalSize))
   .sort((a, b) => a - b)[0]
 
 console.log(p1, p2)
